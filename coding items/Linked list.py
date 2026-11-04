@@ -257,9 +257,9 @@ class Solution:
             
             while cur != end:
                 n = cur.next
-                cur.next = prev
+                cur.next = prev # 将cur的next 指向prev
                 prev = cur
-                cur = n
+                cur = n # prev 和 cur 均后移一位
             
             return prev
         
