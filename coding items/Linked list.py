@@ -217,7 +217,7 @@ class Solution:
             temp = cur.next
             cur.next = temp.next
             temp.next = prev.next
-            prev.next = temp
+            prev.next = temp # 将cur后面的一位插入pre后
          
         return dummy.next
 
