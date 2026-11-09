@@ -451,14 +451,14 @@ class Solution:
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.cache = OrderedDict()
+        self.cache = OrderedDict() # collections.OrderedDict 是 Python 标准库提供的一种能够记住键值对插入顺序的字典（Dictionary）
         self.capacity = capacity
         
 
     def get(self, key: int) -> int:
         if key not in self.cache:
             return -1
-        self.cache.move_to_end(key)
+        self.cache.move_to_end(key) # 这行代码几乎总是出现在用 Python 实现 LRU（Least Recently Used，最近最少使用）缓存 的算法中： # 1. 维护顺序：在 LRU 缓存里，每次有新数据写入或旧数据被访问时，都会把该键值对通过 self.cache.move_to_end(key) 移动到字典的末尾。这样一来，越靠近末尾的，就是最近被使用的；越靠近开头的（头部），就是最久未被使用的。 # 2. 淘汰旧数据：当缓存容量（capacity）满了，需要插入新数据时，就会调用 self.cache.popitem(last=False) 把最旧的头部元素删掉，腾出空间。
 
         return self.cache[key]
         
@@ -468,7 +468,7 @@ class LRUCache:
             self.cache.move_to_end(key)
         self.cache[key] = value
         if len(self.cache) > self.capacity:
-            self.cache.popitem(last=False)
+            self.cache.popitem(last=False) # 从 self.cache（一个有序字典 OrderedDict）中，按“先进先出”（FIFO）的顺序，移除并返回最先插入（也就是最旧、最久未使用）的那一个键值对（key, value）. • 当 last=True（默认值）时，执行的是 LIFO（后进先出，类似栈），弹出最后放入/最近访问的元素。 • 当 last=False 时，执行的是 FIFO（先进先出，类似队列），弹出最先放入的头部元素
 
 
 # Your LRUCache object will be instantiated and called as such:
